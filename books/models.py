@@ -36,7 +36,7 @@ class Book(models.Model):
     publisher_id1 = models.CharField(max_length=5, blank=True)
     url = models.CharField(max_length=80, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-
+    authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True)
 
     class Meta:
