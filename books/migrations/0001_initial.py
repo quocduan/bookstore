@@ -16,7 +16,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Authors',
             fields=[
-                ('author_id', models.CharField(max_length=4, primary_key=True, serialize=False)),
+                # ('author_id', models.CharField(max_length=4, primary_key=True, serialize=False)),
+                ('author_id', models.CharField(max_length=4)),
                 ('name', models.CharField(blank=True, max_length=25, null=True)),
                 ('url', models.CharField(blank=True, max_length=80, null=True)),
             ],
@@ -27,7 +28,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Books',
             fields=[
-                ('isbn', models.CharField(max_length=13, primary_key=True, serialize=False)),
+                # ('isbn', models.CharField(max_length=13, primary_key=True, serialize=False)),
+                ('isbn', models.CharField(max_length=13)),
                 ('title', models.CharField(blank=True, max_length=60, null=True)),
                 ('publisher_id', models.CharField(blank=True, max_length=5)),
                 ('url', models.CharField(blank=True, max_length=80, null=True)),
@@ -40,7 +42,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Booksauthors',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                # ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('isbn', models.CharField(max_length=13)),
                 ('author_id', models.CharField(max_length=4)),
                 ('seq_no', models.SmallIntegerField(blank=True, null=True)),
@@ -52,7 +54,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Publishers',
             fields=[
-                ('publisher_id', models.CharField(max_length=5, primary_key=True, serialize=False)),
+                # ('publisher_id', models.CharField(max_length=5, primary_key=True, serialize=False)),
+                ('publisher_id', models.CharField(max_length=5)),
                 ('name', models.CharField(blank=True, max_length=30, null=True)),
                 ('url', models.CharField(blank=True, max_length=80, null=True)),
             ],

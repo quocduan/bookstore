@@ -11,7 +11,7 @@ from django.db import models
 
 
 class Authors(models.Model):
-    author_id = models.CharField(max_length=4, primary_key=True)
+    author_id = models.CharField(max_length=4)
     name = models.CharField(max_length=25, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
 
@@ -22,7 +22,7 @@ class Authors(models.Model):
 
 class Books(models.Model):
     # International Standard Book Number (ISBN) is a unique numeric commercial book identifier.
-    isbn = models.CharField(max_length=13, primary_key=True)
+    isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=60, blank=True, null=True)
     publisher_id = models.CharField(max_length=5, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
@@ -45,7 +45,7 @@ class BooksAuthors(models.Model):
 
 
 class Publishers(models.Model):
-    publisher_id = models.CharField(max_length=5, primary_key=True)
+    publisher_id = models.CharField(max_length=5)
     name = models.CharField(max_length=30, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
 
