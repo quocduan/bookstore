@@ -14,6 +14,7 @@ class Author(models.Model):
     author_id1 = models.CharField(max_length=4)
     name = models.CharField(max_length=25, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
+    age = models.IntegerField(null=True)
 
     # class Meta:
     #     # managed = False
@@ -23,6 +24,7 @@ class Publisher(models.Model):
     publisher_id1 = models.CharField(max_length=5)
     name = models.CharField(max_length=30, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
+    num_awards = models.IntegerField(null=True)
 
     # class Meta:
     #     # managed = False
@@ -33,15 +35,25 @@ class Book(models.Model):
     # International Standard Book Number (ISBN) is a unique numeric commercial book identifier.
     isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=60, blank=True, null=True)
+    pages = models.IntegerField(null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+    rating = models.FloatField(null=True)
     publisher_id1 = models.CharField(max_length=5, blank=True)
     url = models.CharField(max_length=80, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True)
+    pubdate = models.DateField(null=True)
 
     # class Meta:
     #     # managed = False
     #     db_table = 'books_book'
+
+
+class Store(models.Model):
+    name = models.CharField(max_length=300)
+    books = models.ManyToManyField(Book)
+    registered_users = models.PositiveIntegerField(null=True)
 
 
 class BooksAuthors(models.Model):
