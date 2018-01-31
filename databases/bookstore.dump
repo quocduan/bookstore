@@ -1,0 +1,1103 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.6.6
+-- Dumped by pg_dump version 9.6.6
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(30) NOT NULL,
+    last_name character varying(30) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auth_user_groups (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_groups_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_user_groups_id_seq OWNED BY auth_user_groups.id;
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_user_id_seq OWNED BY auth_user.id;
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE auth_user_user_permissions (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_user_user_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permissions.id;
+
+
+--
+-- Name: authors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE authors (
+    author_id character(4) NOT NULL,
+    name character(25),
+    url character(80)
+);
+
+
+ALTER TABLE authors OWNER TO postgres;
+
+--
+-- Name: books; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE books (
+    title character varying(60),
+    isbn character(13) NOT NULL,
+    publisher_id character(5),
+    url character varying(80),
+    price numeric(10,2)
+);
+
+
+ALTER TABLE books OWNER TO postgres;
+
+--
+-- Name: booksauthors; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE booksauthors (
+    isbn character(13) NOT NULL,
+    author_id character(4) NOT NULL,
+    seq_no smallint
+);
+
+
+ALTER TABLE booksauthors OWNER TO postgres;
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: publishers; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE publishers (
+    publisher_id character(5),
+    name character varying(30),
+    url character varying(80)
+);
+
+
+ALTER TABLE publishers OWNER TO postgres;
+
+--
+-- Name: auth_group id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: auth_group_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: auth_permission id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: auth_user id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_groups id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user_groups_id_seq'::regclass);
+
+
+--
+-- Name: auth_user_user_permissions id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval('auth_user_user_permissions_id_seq'::regclass);
+
+
+--
+-- Name: django_admin_log id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: django_content_type id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: django_migrations id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
+\.
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_permission_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_user_id_seq', 1, false);
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Data for Name: authors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY authors (author_id, name, url) FROM stdin;
+ARON	Aronson, Larry           	www.interport.net/~laronson/Homepage.html                                       
+ARPA	Arpajian, Scott          	                                                                                
+BEBA	Bebak, Arthur            	db.www.idgbooks.com/database/book/isbn/about-author.tmpl?query=1-56884-645-2    
+BRAN	Brandon, Bill            	                                                                                
+BROW	Brown, Mark              	                                                                                
+CAST	Castro, Elizabeth        	www.peachpit.com/peachpit/meetus/authors/elizabeth.castro.html                  
+CEAR	Cearly, Kent             	                                                                                
+CHIN	Chin, Francis            	                                                                                
+CHU1	Chu, Kenny               	                                                                                
+DOWN	Downing, Troy            	found.cs.nyu.edu/downing/index.html                                             
+DUNT	Duntemann, Jeff          	                                                                                
+EWRI	Erwin, Mike              	                                                                                
+EVAN	Evans, Tim               	                                                                                
+FOUS	Foust, Jeff              	                                                                                
+FOX1	Fox, David               	found.cs.nyu.edu/dfox/index.html                                                
+GAIT	Gaither, Mark            	                                                                                
+GRAH	Graham, Ian              	www.utirc.utoronto.ca/personnel/i_graham.html                                   
+GROV	Groves, Dawn             	www.skycat.com/~dawng/dawn.html                                                 
+HARR	Harris, Stuart           	www.esnet.com/~sirrah/www/                                                      
+HASS	Hassinger, Sebastian     	                                                                                
+JAME	James, Steve             	www.lanw.com/sjbio.htm                                                          
+JUNG	Jung, John               	                                                                                
+KARP	Karpinski, Richard       	                                                                                
+KENN	Kennedy, Bill            	www.ora.com/www/item/html.author.html                                           
+KERV	Kerven, David            	                                                                                
+KIDD	Kidder, Gayle            	w3.thegroup.net/~zoom/author.html                                               
+KNAU	Knauss, Greg             	                                                                                
+KRCM	Krcma, Marianne          	                                                                                
+LEJE	LeJeune, Urban           	www.charm.net/~lejeune/                                                         
+LEMA	Lemay, Laura             	slack.lne.com/lemay/index.html                                                  
+MEGA	Megan, Robert            	                                                                                
+MOR1	Morris, Bruce            	                                                                                
+MOR2	Morris, Mary             	                                                                                
+MUL1	Mullen, Robert           	                                                                                
+MUL2	Muller, Nathan           	www.ddx.com/authtoc.html                                                        
+MUSC	Musciano, Chuck          	www.ora.com/www/item/html.author.html                                           
+NEOU	Neou, Vivian             	                                                                                
+PARK	Parker, Elisabeth        	                                                                                
+POWE	Powell, James            	scholar.lib.vt.edu/jpowell/                                                     
+RAND	Randall, Neil            	randall.uwaterloo.ca/                                                           
+RAY1	Ray, Deborah             	db.www.idgbooks.com/database/book/isbn/about-author.tmpl?query=1-56884-990-7    
+RAY2	Ray, Eric                	db.www.idgbooks.com/database/book/isbn/about-author.tmpl?query=1-56884-990-7    
+READ	Ready, Kevin             	www.browserbydesign.com/book/main/about.htm                                     
+RECK	Recker, Mimi             	                                                                                
+SAVO	Savola, Tom              	                                                                                
+SCHA	Scharf, Dean             	                                                                                
+SCHE	Schengili, Keith         	                                                                                
+SMIT	Smith, Bud               	db.www.idgbooks.com/database/book/isbn/about-author.tmpl?query=1-56884-645-2    
+SOSI	Sosinsky, Barrie         	                                                                                
+STAU	Stauffer, Todd           	                                                                                
+TAYL	Taylor, Dave             	www.intuitive.com:80/taylor/                                                    
+TITT	Tittel, Ed               	www.lanw.com/etbio.htm                                                          
+WARN	Warner, Janine           	www.browserbydesign.com/book/main/about.htm                                     
+ZAKO	Zakour, John             	                                                                                
+\.
+
+
+--
+-- Data for Name: books; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY books (title, isbn, publisher_id, url, price) FROM stdin;
+Beyond HTML	0-07-882198-3	00788		27.95
+10 Minute Guide to HTML	0-78970541-9 	07897	www.mcp.com/cgi-bin/bag?isbn=1-07897-0541-9&userID=&last=/bookstore	15.00
+Advanced HTML & CGI Writer's Companion	0-12623540-6 	01262		29.95
+Creating Cool Web Pages with HTML	1-56-884454-9	15688	db.www.idgbooks.com/database/book/isbn/generic-book.tmpl?query=1-56884-454-9	19.99
+Creating Web Pages for Dummies	1-56884645-2 	15688	db.www.idgbooks.com/database/book/isbn/generic-book.tmpl?query=1-56884-645-2	20.00
+How to Use HTML 3	1-56276390-3 	15627	www.mcp.com/169486041707673/cgi-bin/bag?isbn=1-56276-390-3&last=/bookstore	24.99
+HTML 3 How-To	1-57-169050-7	15716	w3.waite.com/waite/waite/books.new/HTML_3_How_To/html/html3htcov.html	39.99
+HTML 3 Interactive Course	1-57169066-2 	15716	w3.waite.com/waite/waite/books.new/HTML_3_Interactive_Course/html/h3iccov.html	39.99
+HTML 3.0 Manual of Style (2nd Ed.)	1-56-276352-0	15627	www.mcp.com/zdpress/features/html3.html	24.95
+HTML by Example	0-78970812-4 	07897	www.mcp.com/26417620761498/cgi-bin/bag?isbn=0-7897-0812-4&last=/bookstore	34.99
+HTML CD- An Internet Publishing Toolkit - Windows Version	0-13-232331-1	01356	www.prenhall.com/013/232330/ptr/23233-0.html	40.00
+HTML for Dummies 2'nd Edition	1-56-884647-9	15688	db.www.idgbooks.com/database/book/isbn/generic-book.tmpl?query=1-56884-330-5	30.00
+HTML For Dummies Quick Reference	1-56884990-7 	15688	db.www.idgbooks.com/database/book/isbn/generic-book.tmpl?query=1-56884-990-7	12.99
+HTML For Fun and Profit: Gold Signature Edition	0-13-242488-6	01356	www.sun.com/smi/ssoftpress/books/Morris/Morris.html	40.00
+HTML for the World Wide Web: Visual Quick Start Guide	0-02188448-8 	00218	www.peachpit.com/peachpit/titles/catalog/88448.html	17.95
+HTML In Action	1-55615948-X 	15561	www.microsoft.com/MSPRESS/BOOKS/DES/5-948-xA.HTM	29.95
+HTML Plus!	0-53451626-2 	05345	scholar.lib.vt.edu/jpowell/htmlplus/	36.00
+HTML Publishing for Netscape, Windows Edition	1-56-604288-7	15660	ephraim.vmedia.com/catalog/	39.95
+HTML Publishing on the Internet	0-07-912100-4	00791		45.00
+HTML Quick Reference	0-78970867-1 	07897	www.mcp.com/282320801523718/cgi-bin/bag?isbn=0-7897-0867-1&last=/bookstore	17.99
+HTML Sourcebook, 2nd Ed.	0-47-114242-5	04711	www.wiley.com:80/compbooks/k19.html	30.00
+HTML Visual Quick Reference	0-07-970411-0	07897	www.mcp.com/cgi-bin/bag?isbn=0-7897-0411-0&userID=75136573&last=/bookstore	15.00
+HTML Web Publisher's Construction Kit	1-57-169018-2	15716	found.cs.nyu.edu/downing/htmlbook.html	36.95
+Hybrid HTML Design	1-56205617-4 	15620	www.mcp.com/229881981168830/cgi-bin/bag?isbn=1-56205-617-4&last=/bookstore	35.00
+More HTML For Dummies	1-56-88499-66	15688	db.www.idgbooks.com/database/book/isbn/generic-book.tmpl?query=1-56884-996-6	22.99
+Netscape and HTML EXplorer	0-18-83577578	18835	www.coriolis.com/bookstor/cgbsnet/netshtml/netshtml.htm	39.99
+Teach Yourself More Web Publishing with HTML in a Week	1-57-521005-3	15752	slack.lne.com/Web/Books/More_HTML/	29.99
+Teach Yourself Web Publishing with HTML 3.0 in a Week, 2e	1-57-521064-9	15752	www.mcp.com/cgi-bin/bag?isbn=1-57521-064-9&last=/bookstore	29.99
+Teach Yourself Web Publishing with HTML 3.2 in 14 Days	1-57-521096-7	15752	www.mcp.com/274423342580643/cgi-bin/bag?isbn=1-57521-096-7&last=/bookstore	59.99
+The Web Page Recipe Book	0-13460296-X 	01356	www.prenhall.com/~ray/013/460295/ptr/46029-5.html	29.95
+The Web Page Workbook	1-88790205-8 	18879	www.fbeedle.com/bookinfo/05-8.html	19.95
+Using HTML	0-78-970622-9	07897	www.mcp.com/2738492176554/cgi-bin/bag?isbn=0-7897-0622-9&last=/bookstore	24.99
+HTML: The Definitive Guide	1-56-592175-5	15659	www.ora.com/www/item/html.html	29.95
+Web Site Wizardry	1-88-357787-X	18835		34.99
+Webmaster's Guide to HTML	0-07-912273-6	00791	www.ddx.com/htmltoc.html	34.95
+Using HTML Special Edition	0-78-970758-6	07897	www.mcp.com/que	49.99
+Foundations of WWW Programming with HTML and CGI	1-56884703-3 	15688		39.99
+\.
+
+
+--
+-- Data for Name: booksauthors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY booksauthors (isbn, author_id, seq_no) FROM stdin;
+0-07-882198-3	KARP	1
+0-78970541-9 	EVAN	1
+0-12623540-6 	SCHE	1
+1-56-884454-9	TAYL	1
+1-56884645-2 	SMIT	1
+1-56884645-2 	BEBA	2
+1-56884703-3 	TITT	1
+1-56884703-3 	GAIT	2
+1-56884703-3 	HASS	3
+1-56884703-3 	ERWI	4
+1-56276390-3 	ARPA	1
+1-57-169050-7	KERV	1
+1-57-169050-7	FOUS	2
+1-57-169050-7	ZAKO	3
+1-57169066-2 	CEAR	1
+1-56-276352-0	ARON	1
+0-78970812-4 	STAU	1
+0-13-232331-1	NEOU	1
+0-13-232331-1	RECK	1
+1-56-884647-9	TITT	1
+1-56-884647-9	JAME	2
+1-56884990-7 	RAY1	1
+1-56884990-7 	RAY2	2
+0-13-242488-6	MOR2	1
+0-02188448-8 	CAST	1
+1-55615948-X 	MOR1	1
+0-53451626-2 	POWE	1
+1-56-604288-7	HARR	1
+1-56-604288-7	KIDD	2
+0-07-912100-4	CHU1	1
+0-07-912100-4	CHIN	2
+0-78970867-1 	MUL1	1
+0-47-114242-5	GRAH	1
+0-07-970411-0	SCHA	1
+1-57-169018-2	FOX1	1
+1-57-169018-2	DOWN	2
+1-56-592175-5	MUSC	1
+1-56-592175-5	KENN	2
+1-56205617-4 	READ	1
+1-56205617-4 	WARN	2
+1-56-88499-66	TITT	1
+0-18-83577578	LEJE	1
+0-18-83577578	DUNT	2
+1-57-521005-3	LEMA	1
+1-57-521064-9	LEMA	1
+1-57-521096-7	LEMA	1
+0-13460296-X 	SOSI	1
+0-13460296-X 	PARK	2
+1-88790205-8 	GROV	1
+0-78-970622-9	RAND	1
+0-78-970622-9	JUNG	1
+0-78-970622-9	KNAU	1
+0-78-970622-9	SAVO	1
+1-88-357787-X	BROW	2
+1-88-357787-X	JUNG	3
+1-88-357787-X	BRAN	4
+1-88-357787-X	MEGA	1
+1-88-357787-X	SAVO	1
+0-07-912273-6	KRCM	1
+0-78-970758-6	MUL2	1
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_admin_log_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_content_type (id, app_label, model) FROM stdin;
+\.
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_content_type_id_seq', 1, false);
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2018-01-31 15:42:14.364265+07
+2	auth	0001_initial	2018-01-31 15:42:14.561109+07
+3	admin	0001_initial	2018-01-31 15:42:14.626466+07
+4	admin	0002_logentry_remove_auto_add	2018-01-31 15:42:14.659174+07
+5	contenttypes	0002_remove_content_type_name	2018-01-31 15:42:14.689291+07
+6	auth	0002_alter_permission_name_max_length	2018-01-31 15:42:14.701441+07
+7	auth	0003_alter_user_email_max_length	2018-01-31 15:42:14.717533+07
+8	auth	0004_alter_user_username_opts	2018-01-31 15:42:14.738441+07
+9	auth	0005_alter_user_last_login_null	2018-01-31 15:42:14.760379+07
+10	auth	0006_require_contenttypes_0002	2018-01-31 15:42:14.764084+07
+11	auth	0007_alter_validators_add_error_messages	2018-01-31 15:42:14.777363+07
+12	auth	0008_alter_user_username_max_length	2018-01-31 15:42:14.800682+07
+\.
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('django_migrations_id_seq', 12, true);
+
+
+--
+-- Data for Name: publishers; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY publishers (publisher_id, name, url) FROM stdin;
+01262	Academic Press	www.apnet.com/
+18835	Coriolis	www.coriolis.com/
+18879	Franklin, Beedle & Associates	www.fbeedle.com/
+15688	IDG Books	www.idgbooks.com/
+05345	Integrated Media Group	www.thomson.com/rcenters/img/img.html
+00791	McGraw-Hill	www.mcgraw-hill.com/
+15561	Microsoft Press	www.microsoft.com/mspress/
+15660	Netscape Press	www.netscapepress.com/
+15620	New Riders	www.mcp.com/newriders/
+15659	O'Reilly	www.ora.com/
+00788	Osborne/McGraw-Hill	www.osborne.com
+00218	Peachpit Press	www.peachpit.com/
+01356	Prentice Hall	www.prenhall.com/
+07897	Que	www.mcp.com/que/
+15752	Sams.net	www.mcp.com/samsnet/
+15716	Waite	www.waite.com/waite/
+04711	Wiley	www.wiley.com/
+15627	Ziff-Davis	www.mcp.com/zdpress/
+\.
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk FOREIGN KEY (user_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
