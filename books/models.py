@@ -15,18 +15,18 @@ class Author(models.Model):
     name = models.CharField(max_length=25, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
 
-    class Meta:
-        # managed = False
-        db_table = 'books_author'
+    # class Meta:
+    #     # managed = False
+    #     db_table = 'books_author'
 
 class Publisher(models.Model):
     publisher_id1 = models.CharField(max_length=5)
     name = models.CharField(max_length=30, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
 
-    class Meta:
-        # managed = False
-        db_table = 'books_publisher'
+    # class Meta:
+    #     # managed = False
+    #     db_table = 'books_publisher'
 
 
 class Book(models.Model):
@@ -39,9 +39,9 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True)
 
-    class Meta:
-        # managed = False
-        db_table = 'books_book'
+    # class Meta:
+    #     # managed = False
+    #     db_table = 'books_book'
 
 
 class BooksAuthors(models.Model):
