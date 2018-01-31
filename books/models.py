@@ -17,7 +17,7 @@ class Author(models.Model):
 
     class Meta:
         # managed = False
-        db_table = 'authors'
+        db_table = 'books_author'
 
 class Publisher(models.Model):
     publisher_id1 = models.CharField(max_length=5)
@@ -26,7 +26,7 @@ class Publisher(models.Model):
 
     class Meta:
         # managed = False
-        db_table = 'publishers'
+        db_table = 'books_publisher'
 
 
 class Book(models.Model):
