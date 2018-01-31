@@ -10,7 +10,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 
-class Authors(models.Model):
+class Author(models.Model):
     author_id1 = models.CharField(max_length=4)
     name = models.CharField(max_length=25, blank=True, null=True)
     url = models.CharField(max_length=80, blank=True, null=True)
@@ -19,14 +19,25 @@ class Authors(models.Model):
         # managed = False
         db_table = 'authors'
 
+class Publisher(models.Model):
+    publisher_id1 = models.CharField(max_length=5)
+    name = models.CharField(max_length=30, blank=True, null=True)
+    url = models.CharField(max_length=80, blank=True, null=True)
 
-class Books(models.Model):
+    class Meta:
+        # managed = False
+        db_table = 'publishers'
+
+
+class Book(models.Model):
     # International Standard Book Number (ISBN) is a unique numeric commercial book identifier.
     isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=60, blank=True, null=True)
     publisher_id1 = models.CharField(max_length=5, blank=True)
     url = models.CharField(max_length=80, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
+    publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, null=True)
 
     class Meta:
         # managed = False
@@ -44,11 +55,3 @@ class BooksAuthors(models.Model):
         db_table = 'booksauthors'
 
 
-class Publishers(models.Model):
-    publisher_id1 = models.CharField(max_length=5)
-    name = models.CharField(max_length=30, blank=True, null=True)
-    url = models.CharField(max_length=80, blank=True, null=True)
-
-    class Meta:
-        # managed = False
-        db_table = 'publishers'
