@@ -41,7 +41,7 @@ class Book(models.Model):
 
     class Meta:
         # managed = False
-        db_table = 'books'
+        db_table = 'books_book'
 
 
 class BooksAuthors(models.Model):
@@ -51,7 +51,7 @@ class BooksAuthors(models.Model):
     seq_no = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:
-        # managed = False
+        managed = False
         db_table = 'booksauthors'
 
 
