@@ -24,7 +24,7 @@ class Books(models.Model):
     # International Standard Book Number (ISBN) is a unique numeric commercial book identifier.
     isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=60, blank=True, null=True)
-    publisher_id = models.CharField(max_length=5, blank=True, null=True)
+    publisher_id = models.CharField(max_length=5, blank=True)
     url = models.CharField(max_length=80, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
