@@ -41,3 +41,11 @@ class Entry(models.Model):
 
     def __str__(self):
         return self.headline
+
+class Country(models.Model):
+    name = models.CharField(max_length=30)
+
+class City(models.Model):
+    name = models.CharField(max_length=30)
+    country = models.ForeignKey(Country)
+    population = models.PositiveIntegerField()
